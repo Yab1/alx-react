@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+body {
+  padding: 1em;
+}
+/* Header section */
+.App-header {
+  display: flex;
+  color: rgb(225, 52, 75);
+  font-weight: 700;
+  align-items: center;
+  gap: 1em;
+}
+.App-header img {
+  width: 20%;
+  aspect-ratio: 1/1;
+}
+
+/* Body section */
+.App-body {
+  font-size: 0.8rem;
+  height: 10em;
+  margin: 3em;
+}
+.App-body p {
+  margin-bottom: 1em;
+}
+.App-body button {
+  background-color: transparent;
+  border: 0.1em solid gray;
+}
+.App-body > * {
+  margin-inline-end: 0.8em;
+}
+.App-body input {
+  border: 0.1em solid rgb(180, 178, 178);
+  padding: 0.2em;
+}
+/* Footer section */
+.App-footer {
+  font-size: 0.8rem;
+  text-align: center;
+  font-style: italic;
+  margin-top: 1em;
+}
+hr {
+  height: 0.1em;
+  width: 99%;
+  background-color: rgb(225, 52, 75);
+  border: none;
+}
