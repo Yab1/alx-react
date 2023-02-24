@@ -1,7 +1,7 @@
 import React from 'react';
 import './Notifications.css';
 import closeIcon from './close-icon.png';
-import getLatestNotification from './utils.js';
+import { getLatestNotification } from './utils.js';
 
 function Notification() {
   function handleClick() {
@@ -26,7 +26,7 @@ function Notification() {
         <li data-priority="urgent">New resume available</li>
         <li
           data-priority="urgent"
-          dangerouslySetInnerHTML={getLatestNotification()}
+          dangerouslySetInnerHTML={{ __html: getLatestNotification() }}
         ></li>
       </ul>
     </div>
