@@ -1,22 +1,15 @@
-.Notification {
-  display: flex;
-  flex-direction: column;
-  border: 0.1em dashed firebrick;
+.Notifications {
+  padding: 1em;
+  border: 2px dashed red;
+  position: absolute;
+  top: 10px;
+  width: 95vw;
 }
-.Notification button img {
-  width: 0.7em;
-  aspect-ratio: 1/1;
-}
-.Notification p {
-  font-size: 0.8rem;
-}
-.Notification ul {
-  font-size: 0.8rem;
-  margin: 1em 0;
-}
-[data-priority='default'] {
+
+li[data="default"] {
   color: blue;
 }
-[data-priority='urgent'] {
+
+li[data="urgent"] {
   color: red;
 }
