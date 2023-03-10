@@ -1,0 +1,12 @@
+.App-header {
+  display: flex;
+  color: rgb(225, 52, 75);
+  font-weight: 700;
+  align-items: center;
+  gap: 1em;
+  padding-top: 8em;
+}
+.App-logo {
+  width: 20%;
+  aspect-ratio: 1/1;
+}
