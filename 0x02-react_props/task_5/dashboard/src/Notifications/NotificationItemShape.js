@@ -8,3 +8,5 @@ const NotificationItemShape = PropTypes.shape({
   type: PropTypes.string.isRequired,
   value: PropTypes.string,
 });
+
+export default NotificationItemShape;
