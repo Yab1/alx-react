@@ -25,13 +25,12 @@ const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
 
 CourseListRow.propTypes = {
   isHeader: PropTypes.bool,
-  textFirstCell: PropTypes.string,
-  textSecondCell: PropTypes.string,
+  textFirstCell: PropTypes.string.isRequired,
+  textSecondCell: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 CourseListRow.defaultProps = {
   isHeader: false,
-  textFirstCell: 'required',
   textSecondCell: null,
 };
 
