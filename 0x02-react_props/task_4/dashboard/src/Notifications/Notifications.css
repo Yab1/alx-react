@@ -2,8 +2,16 @@
   padding: 1em;
   border: 2px dashed red;
   position: absolute;
-  top: 10px;
-  width: 95vw;
+  top: 40px;
+  right: 1.9em;
+  width: 30vw;
+  z-index: 10;
+}
+
+.menuItem {
+  font-size: 0.8rem;
+  text-align: end;
+  padding-right: 1.2em;
 }
 
 li[data-notification-type='default'] {
