@@ -4,7 +4,7 @@ import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header.js';
 import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
-import PropTypes, { bool } from 'prop-types';
+import PropTypes from 'prop-types';
 import CourseList from '../CourseList/CourseList';
 
 function App({ isLoggedIn }) {
@@ -22,7 +22,7 @@ function App({ isLoggedIn }) {
   );
 }
 
-App.propType = {
+App.propTypes = {
   isLoggedIn: PropTypes.bool,
 };
 
