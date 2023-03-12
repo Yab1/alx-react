@@ -2,13 +2,14 @@
   font-size: 0.8rem;
   height: 10em;
   margin: 3em;
+  margin-bottom: 22vh;
 }
 .App-body p {
   margin-bottom: 1em;
 }
 .App-body button {
   background-color: transparent;
-  border: 0.1em solid gray;
+  border: 0.1em solid rgb(180, 178, 178);
 }
 .App-body > * {
   margin-inline-end: 0.8em;
