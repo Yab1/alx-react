@@ -23,7 +23,7 @@ const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
   );
 };
 
-CourseListRow.prototype = {
+CourseListRow.propTypes = {
   isHeader: PropTypes.bool,
   textFirstCell: PropTypes.string,
   textSecondCell: PropTypes.string,
