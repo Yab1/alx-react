@@ -22,13 +22,13 @@ class App extends Component {
     ];
     return (
       <>
-        <Notifications listNotifications={listNotifications} />
+        <Notifications listNotifications={this.listNotifications} />
         <div className="App">
           <Header />
           <hr />
           <>
             {this.props.isLoggedIn ? (
-              <CourseList listCourses={listCourses} />
+              <CourseList listCourses={this.listCourses} />
             ) : (
               <Login />
             )}
