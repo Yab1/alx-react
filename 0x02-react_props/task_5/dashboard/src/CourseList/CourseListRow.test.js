@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import CourseListRow from './CourseListRow';
 
 describe('CourseListRow When isHeader is true', () => {
-  const courseListRow = shallow(<CourseListRow />);
+  const courseListRow = shallow(<CourseListRow textFirstCell="test" />);
   it('should renders one cell with "colspan = 2 " when textSecondCell does not exist', () => {
     courseListRow.setProps({
       isHeader: true,
@@ -22,7 +22,7 @@ describe('CourseListRow When isHeader is true', () => {
 });
 
 describe('CourseListRow When isHeader is false', () => {
-  const courseListRow = shallow(<CourseListRow />);
+  const courseListRow = shallow(<CourseListRow textFirstCell="test" />);
   it('should renders two "td" elements within a "tr" element', () => {
     courseListRow.setProps({
       isHeader: false,

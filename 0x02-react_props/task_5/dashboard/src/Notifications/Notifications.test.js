@@ -1,6 +1,14 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import Notifications from './Notifications';
+import NotificationItem from './NotificationItem';
+import { getLatestNotification } from '../utils/utils';
+
+const listNotifications = [
+  { id: 1, type: 'default', value: 'New course available' },
+  { id: 2, type: 'urgent', value: 'New resume available' },
+  { id: 3, type: 'urgent', html: getLatestNotification() },
+];
 
 describe('Notification component tests', () => {
   const notification = shallow(<Notifications />);
@@ -19,14 +27,10 @@ describe('Notification component tests', () => {
     ).toBe(true);
   });
 
-  it('renders correct text', () => {
-    expect(
-      notification.setProps({ displayDrawer: true }).find('p').text()
-    ).toBe('Here is the list of notifications');
-  });
-
   it('should check NotificationItem element renders the right html', () => {
-    const notificationItem = notification.find('NotificationItem');
+    const notificationItem = notification
+      .setProps({ displayDrawer: true, listNotifications: listNotifications })
+      .find('NotificationItem');
     notificationItem.forEach((li, index) => {
       index === 0 &&
         expect(li.html()).toEqual(
@@ -38,7 +42,7 @@ describe('Notification component tests', () => {
         );
       index === 2 &&
         expect(li.html()).toEqual(
-          '<li data-urgent="true"><strong>Urgent requirement</strong> - complete by EOD</li>'
+          '<li data-notification-type="urgent"><strong>Urgent requirement</strong> - complete by EOD</li>'
         );
     });
   });
@@ -48,7 +52,11 @@ describe('Notification component tests', () => {
       notification.setProps({ displayDrawer: false }).exists('.menuItem')
     ).toBe(true);
   });
-
+  it('should not display the div.Notifications when displayDrawer is false', () => {
+    expect(
+      notification.setProps({ displayDrawer: false }).exists('.Notifications')
+    ).toBe(false);
+  });
   it('should display the  menuItem div when displayDrawer is true', () => {
     expect(
       notification.setProps({ displayDrawer: true }).exists('.menuItem')
@@ -58,5 +66,41 @@ describe('Notification component tests', () => {
     expect(
       notification.setProps({ displayDrawer: true }).exists('.Notifications')
     ).toBe(true);
+  });
+
+  it('should render correctly when listNotifications passes an empty array is passed', () => {
+    expect(
+      notification
+        .setProps({ displayDrawer: true, listNotifications: [] })
+        .containsMatchingElement(
+          <NotificationItem
+            value="No new notification for now"
+            type="default"
+          />
+        )
+    ).toBe(true);
+  });
+
+  it('should render correctly when listNotifications passes an array is passed', () => {
+    const notification = shallow(<Notifications />);
+    notification.setProps({
+      displayDrawer: true,
+      listNotifications: listNotifications,
+    });
+    expect(notification.find('NotificationItem')).toHaveLength(3);
+  });
+
+  it('should display "No new notification for now" when listNotifications is empty but "Here is the list of notifications" should not be displayed ', () => {
+    notification.setProps({ listNotifications: [], dispatchEvent: true });
+    expect(
+      notification.containsMatchingElement(
+        <p>Here is the list of notifications</p>
+      )
+    ).toBe(false);
+    expect(
+      notification.containsMatchingElement(
+        <li data-notification-type="default">No new notification for now</li>
+      )
+    );
   });
 });

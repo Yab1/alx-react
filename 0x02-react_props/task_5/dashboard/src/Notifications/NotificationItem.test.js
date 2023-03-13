@@ -8,7 +8,7 @@ describe(NotificationItem, () => {
     expect(notificationItem).toBeDefined();
   });
 
-  it('should renders the correct html for a dummy props ', () => {
+  it('should renders correct html from type="default" value="test" props', () => {
     const notificationItem = shallow(<NotificationItem />);
     notificationItem.setProps({ type: 'default', value: 'test' });
     expect(notificationItem.html()).toEqual(
@@ -16,11 +16,11 @@ describe(NotificationItem, () => {
     );
   });
 
-  it('should render the correct html for a dummy prop', () => {
+  it('should renders correct html from  html="<u>test</u>" props', () => {
     const notificationItem = shallow(<NotificationItem />);
     notificationItem.setProps({ html: '<u>test</u>' });
     expect(notificationItem.html()).toEqual(
-      '<li data-urgent="true"><u>test</u></li>'
+      '<li data-notification-type="default"><u>test</u></li>'
     );
   });
 });

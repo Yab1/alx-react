@@ -11,7 +11,6 @@ describe(App, () => {
   it('should renders without crashing', () => {
     expect(app).toBeDefined();
   });
-
   it('should contain the Notifications component', () => {
     expect(app.exists(Notifications)).toBe(true);
   });
@@ -34,7 +33,9 @@ describe(App, () => {
 });
 
 describe('isLoggedIn is true', () => {
-  const app = shallow(<App isLoggedIn={true} />);
+  const app = shallow(<App />);
+  app.setProps({ isLoggedIn: true });
+
   it('should verify that the Login component is not included', () => {
     expect(app.exists('Login')).toBe(false);
   });
