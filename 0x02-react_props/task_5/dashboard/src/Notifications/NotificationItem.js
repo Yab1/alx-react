@@ -7,7 +7,7 @@ const NotificationItem = ({ type, html, value }) => {
       {type && value ? <li data-notification-type={type}>{value}</li> : null}
       {html ? (
         <li
-          data-notification-type="urgent"
+          data-notification-type={type}
           dangerouslySetInnerHTML={{ __html: html }}
         ></li>
       ) : null}
@@ -16,9 +16,7 @@ const NotificationItem = ({ type, html, value }) => {
 };
 
 NotificationItem.propsTypes = {
-  html: PropsTypes.shape({
-    __html: PropsTypes.string,
-  }),
+  __html: PropsTypes.shape({ html: PropsTypes.string }),
   type: PropsTypes.string.isRequired,
   value: PropsTypes.string,
 };

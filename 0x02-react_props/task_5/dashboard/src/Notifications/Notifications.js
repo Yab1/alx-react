@@ -1,12 +1,12 @@
 import React from 'react';
 import './Notifications.css';
 import closeIcon from '../assets/close-icon.png';
-import { getLatestNotification } from '../utils/utils';
 import NotificationsItem from './NotificationItem';
 import PropTypes from 'prop-types';
 import NotificationItemShape from './NotificationItemShape';
 
 function Notifications({ displayDrawer, listNotifications }) {
+  // console.log(listNotifications);
   return (
     <>
       <div className="menuItem">Your notifications</div>
@@ -30,17 +30,19 @@ function Notifications({ displayDrawer, listNotifications }) {
             >
               <img src={closeIcon} alt="closeIcon" width="10px" />
             </button>
-            <p>Here is the list of notifications</p>
             <ul>
-              {listNotifications > 0 ? (
-                listNotifications.map(({ id, html, type, value }) => (
-                  <NotificationsItem
-                    id={id}
-                    html={html}
-                    type={type}
-                    value={value}
-                  />
-                ))
+              {listNotifications && listNotifications.length > 0 ? (
+                <>
+                  <p>Here is the list of notifications</p>
+                  {listNotifications.map(({ id, html, type, value }) => (
+                    <NotificationsItem
+                      key={id}
+                      type={type}
+                      value={value}
+                      html={html}
+                    />
+                  ))}
+                </>
               ) : (
                 <NotificationsItem value="No new notification for now" />
               )}
@@ -59,6 +61,7 @@ Notifications.propTypes = {
 
 Notifications.defaultProps = {
   displayDrawer: false,
+  listNotifications: [],
 };
 
 export default Notifications;
