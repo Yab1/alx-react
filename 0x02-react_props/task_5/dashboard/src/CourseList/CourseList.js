@@ -17,7 +17,7 @@ const CourseList = ({ listCourses }) => {
           />
         </thead>
         <tbody>
-          {listCourses > 0 ? (
+          {listCourses.length > 0 ? (
             listCourses.map(({ id, name, credit }) => (
               <CourseListRow
                 key={id}
