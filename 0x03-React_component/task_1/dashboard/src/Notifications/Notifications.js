@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import NotificationItemShape from './NotificationItemShape';
 
 function Notifications({ displayDrawer, listNotifications }) {
-  // console.log(listNotifications);
   return (
     <>
       <div className="menuItem">Your notifications</div>
