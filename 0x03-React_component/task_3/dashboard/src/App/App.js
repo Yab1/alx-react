@@ -7,6 +7,8 @@ import Footer from '../Footer/Footer';
 import PropTypes from 'prop-types';
 import CourseList from '../CourseList/CourseList';
 import { getLatestNotification } from '../utils/utils';
+import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
+import BodySection from '../BodySection/BodySection';
 
 class App extends Component {
   constructor(props) {
@@ -51,12 +53,22 @@ class App extends Component {
           <hr />
           <>
             {isLoggedIn ? (
-              <CourseList listCourses={this.listCourses} />
+              <BodySectionWithMarginBottom title="Course List">
+                <CourseList listCourses={this.listCourses} />
+              </BodySectionWithMarginBottom>
             ) : (
-              <Login />
+              <BodySectionWithMarginBottom>
+                <Login />
+              </BodySectionWithMarginBottom>
             )}
           </>
           <hr />
+          <BodySection title="News from the School">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Accusantium quos cum neque est rem ab?
+            </p>
+          </BodySection>
           <Footer />
         </div>
       </>
