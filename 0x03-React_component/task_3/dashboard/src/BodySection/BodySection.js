@@ -13,8 +13,8 @@ class BodySection extends Component {
   }
 }
 
-BodySection.prototype = {
-  title: PropTypes.string.isRequired,
+BodySection.protoTypes = {
+  title: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };
 
