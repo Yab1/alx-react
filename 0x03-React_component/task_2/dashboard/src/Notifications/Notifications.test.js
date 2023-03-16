@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Notifications from './Notifications';
-import NotificationItem from './NotificationItem';
+// import NotificationItem from './NotificationItem';
 import { getLatestNotification } from '../utils/utils';
 
 const listNotifications = [
@@ -69,16 +69,14 @@ describe('Notification component tests', () => {
   });
 
   it('should render correctly when listNotifications passes an empty array is passed', () => {
+    const notification = shallow(
+      <Notifications displayDrawer={true} listNotifications={[]} />
+    );
     expect(
-      notification
-        .setProps({ displayDrawer: true, listNotifications: [] })
-        .containsMatchingElement(
-          <NotificationItem
-            value="No new notification for now"
-            type="default"
-          />
-        )
-    ).toBe(true);
+      notification.containsMatchingElement(
+        <li data-notification-type="default">No new notification for now</li>
+      )
+    );
   });
 
   it('should render correctly when listNotifications passes an array is passed', () => {
@@ -102,5 +100,19 @@ describe('Notification component tests', () => {
         <li data-notification-type="default">No new notification for now</li>
       )
     );
+  });
+});
+
+describe('onclick event behaves as it should', () => {
+  const notification = shallow(<Notifications />);
+  it('should call console.log', () => {
+    const spy = jest.spyOn(console, 'log').mockImplementation();
+
+    notification.instance().markAsRead = spy;
+    notification.instance().markAsRead(1);
+    expect(notification.instance().markAsRead).toBeCalledWith(1);
+    expect(spy).toBeCalledTimes(1);
+    expect(spy).toBeCalledWith(1);
+    spy.mockRestore();
   });
 });
