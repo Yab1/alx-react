@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Notifications from './Notifications';
-// import NotificationItem from './NotificationItem';
 import { getLatestNotification } from '../utils/utils';
 
 const listNotifications = [
@@ -100,6 +99,38 @@ describe('Notification component tests', () => {
         <li data-notification-type="default">No new notification for now</li>
       )
     );
+  });
+  it('should not re-render when the list passed as prop is the same', () => {
+    const notification = shallow(
+      <Notifications
+        displayDrawer={true}
+        listNotifications={listNotifications}
+      />
+    );
+
+    expect(
+      notification.instance().shouldComponentUpdate(listNotifications)
+    ).toBe(false);
+  });
+
+  it('should re-renders if listNotifications if listNotifications is changed', () => {
+    const newListNotifications = [
+      { id: 1, type: 'default', value: 'New course available' },
+      { id: 2, type: 'urgent', value: 'New resume available' },
+      { id: 3, type: 'default', html: getLatestNotification() },
+      { id: 4, type: 'default', value: 'Foo' },
+    ];
+
+    const notification = shallow(
+      <Notifications
+        displayDrawer={true}
+        listNotifications={listNotifications}
+      />
+    );
+
+    expect(
+      notification.instance().shouldComponentUpdate(newListNotifications)
+    ).toBe(true);
   });
 });
 
