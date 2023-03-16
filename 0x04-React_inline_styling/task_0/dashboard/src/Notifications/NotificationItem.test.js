@@ -26,13 +26,16 @@ describe(NotificationItem, () => {
 });
 describe('onclick event behaves as it should', () => {
   it('should call console.log', () => {
-    const notification = shallow(<NotificationItem />);
+    const notificationItem = shallow(<NotificationItem />);
     const spy = jest.fn();
 
-    notification.setProps({ value: 'test item', markAsRead: spy, id: 1 });
-    console.log(notification.find('li').debug());
-    // expect(spy).toBeCalledTimes(1);
-    // expect(spy).toBeCalledWith(1);
+    notificationItem
+      .setProps({ value: 'test item', markAsRead: spy, id: 1 })
+      .find('li')
+      .props()
+      .onClick();
+    expect(spy).toBeCalledTimes(1);
+    expect(spy).toBeCalledWith(1);
     spy.mockRestore();
   });
 });

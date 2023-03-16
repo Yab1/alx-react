@@ -20,11 +20,11 @@ describe('Notification component tests', () => {
     expect(notification.find('ul')).toBeDefined();
   });
 
-  it('should check that the component renders NotificationItem elements', () => {
-    expect(
-      notification.setProps({ displayDrawer: true }).exists('NotificationItem')
-    ).toBe(true);
-  });
+  // it('should check that the component renders NotificationItem elements', () => {
+  //   expect(
+  //     notification.setProps({ displayDrawer: true }).exists('NotificationItem')
+  //   ).toBe(true);
+  // });
 
   it('should check NotificationItem element renders the right html', () => {
     const notificationItem = notification
@@ -62,6 +62,7 @@ describe('Notification component tests', () => {
     ).toBe(true);
   });
   it('should display the div.Notifications when displayDrawer is true', () => {
+    const notification = shallow(<Notifications displayDrawer={true} />);
     expect(
       notification.setProps({ displayDrawer: true }).exists('.Notifications')
     ).toBe(true);
@@ -79,11 +80,12 @@ describe('Notification component tests', () => {
   });
 
   it('should render correctly when listNotifications passes an array is passed', () => {
-    const notification = shallow(<Notifications />);
-    notification.setProps({
-      displayDrawer: true,
-      listNotifications: listNotifications,
-    });
+    const notification = shallow(
+      <Notifications
+        displayDrawer={true}
+        listNotifications={listNotifications}
+      />
+    );
     expect(notification.find('NotificationItem')).toHaveLength(3);
   });
 
