@@ -56,8 +56,6 @@ describe('When ctrl + h is pressed', () => {
     const event = new KeyboardEvent('keypress', { ctrlKey: true, key: 'h' });
     document.dispatchEvent(event);
 
-    console.log(app.debug());
-
     expect(logOutMock).toHaveBeenCalled();
     app.unmount();
   });
