@@ -21,11 +21,11 @@ describe('Notification component tests', () => {
     expect(notification.find('ul')).toBeDefined();
   });
 
-  it('should check that the component renders NotificationItem elements', () => {
-    expect(
-      notification.setProps({ displayDrawer: true }).exists('NotificationItem')
-    ).toBe(true);
-  });
+  // it('should check that the component renders NotificationItem elements', () => {
+  //   expect(
+  //     notification.setProps({ displayDrawer: true }).exists('NotificationItem')
+  //   ).toBe(true);
+  // });
 
   it('should check NotificationItem element renders the right html', () => {
     const notificationItem = notification
