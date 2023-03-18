@@ -2,6 +2,14 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Notifications from './Notifications';
 import { getLatestNotification } from '../utils/utils';
+import { StyleSheetTestUtils } from 'aphrodite';
+
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 const listNotifications = [
   { id: 1, type: 'default', value: 'New course available' },
@@ -48,23 +56,27 @@ describe('Notification component tests', () => {
 
   it('should display the  menuItem div when displayDrawer is false', () => {
     expect(
-      notification.setProps({ displayDrawer: false }).exists('.menuItem')
+      notification.setProps({ displayDrawer: false }).exists('.menuItem_f2e8m0')
     ).toBe(true);
   });
   it('should not display the div.Notifications when displayDrawer is false', () => {
+    const notification = shallow(<Notifications displayDrawer={true} />);
     expect(
       notification.setProps({ displayDrawer: false }).exists('.Notifications')
     ).toBe(false);
   });
   it('should display the  menuItem div when displayDrawer is true', () => {
+    const notification = shallow(<Notifications displayDrawer={true} />);
     expect(
-      notification.setProps({ displayDrawer: true }).exists('.menuItem')
+      notification.setProps({ displayDrawer: true }).exists('.menuItem_f2e8m0')
     ).toBe(true);
   });
   it('should display the div.Notifications when displayDrawer is true', () => {
     const notification = shallow(<Notifications displayDrawer={true} />);
     expect(
-      notification.setProps({ displayDrawer: true }).exists('.Notifications')
+      notification
+        .setProps({ displayDrawer: true })
+        .exists('.Notifications_1vd86y5')
     ).toBe(true);
   });
 
