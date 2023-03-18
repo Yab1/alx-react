@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header.js';
 import Login from '../Login/Login';
@@ -9,6 +8,7 @@ import CourseList from '../CourseList/CourseList';
 import { getLatestNotification } from '../utils/utils';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import BodySection from '../BodySection/BodySection';
+import { StyleSheet, css } from 'aphrodite';
 
 class App extends Component {
   constructor(props) {
@@ -48,9 +48,9 @@ class App extends Component {
     return (
       <>
         <Notifications listNotifications={this.listNotifications} />
-        <div className="App">
+        <div className={css(styles.App)}>
           <Header />
-          <hr />
+          <hr className={css(styles.Horizontal)} />
           <>
             {isLoggedIn ? (
               <BodySectionWithMarginBottom title="Course List">
@@ -62,7 +62,7 @@ class App extends Component {
               </BodySectionWithMarginBottom>
             )}
           </>
-          <hr />
+          <hr className={css(styles.Horizontal)} />
           <BodySection title="News from the School">
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -87,5 +87,19 @@ App.defaultProps = {
     return;
   },
 };
+
+const styles = StyleSheet.create({
+  App: {
+    height: '100vh',
+    maxWidth: '100vw',
+    position: 'relative',
+  },
+  Horizontal: {
+    height: '0.1em',
+    width: '99%',
+    backgroundColor: 'rgb(225, 52, 75)',
+    border: 'none',
+  },
+});
 
 export default App;

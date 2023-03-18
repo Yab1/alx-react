@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './Notifications.css';
 import closeIcon from '../assets/close-icon.png';
 import NotificationsItem from './NotificationItem';
 import PropTypes from 'prop-types';
 import NotificationItemShape from './NotificationItemShape';
+import { StyleSheet, css } from 'aphrodite';
 
 class Notifications extends Component {
   constructor(props) {
@@ -22,10 +22,10 @@ class Notifications extends Component {
     const { displayDrawer, listNotifications } = this.props;
     return (
       <>
-        <div className="menuItem">Your notifications</div>
+        <div className={css(styles.menuItem)}>Your notifications</div>
         {displayDrawer && (
           <>
-            <div className="Notifications">
+            <div className={css(styles.Notifications)}>
               <button
                 style={{
                   color: '#3a3a3a',
@@ -43,10 +43,12 @@ class Notifications extends Component {
               >
                 <img src={closeIcon} alt="closeIcon" width="10px" />
               </button>
+              {listNotifications.length !== 0 ? (
+                <p>Here is the list of notifications</p>
+              ) : null}
               <ul>
                 {listNotifications && listNotifications.length > 0 ? (
                   <>
-                    <p>Here is the list of notifications</p>
                     {listNotifications.map(({ id, html, type, value }) => (
                       <NotificationsItem
                         key={id}
@@ -78,8 +80,25 @@ Notifications.propTypes = {
 };
 
 Notifications.defaultProps = {
-  displayDrawer: false,
+  displayDrawer: true,
   listNotifications: [],
 };
+
+const styles = StyleSheet.create({
+  Notifications: {
+    padding: '1em',
+    border: '2px dashed red',
+    position: 'absolute',
+    top: '40px',
+    right: '1.9em',
+    width: '30vw',
+    zIndex: '10',
+  },
+  menuItem: {
+    fontSize: '0.8rem',
+    textAlign: 'end',
+    paddingRight: '1.2em',
+  },
+});
 
 export default Notifications;
