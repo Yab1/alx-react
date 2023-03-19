@@ -69,7 +69,7 @@ class App extends Component {
               Accusantium quos cum neque est rem ab?
             </p>
           </BodySection>
-          <Footer />
+          <Footer className={css(styles.AppFooter)} />
         </div>
       </>
     );
@@ -99,6 +99,12 @@ const styles = StyleSheet.create({
     width: '99%',
     backgroundColor: 'rgb(225, 52, 75)',
     border: 'none',
+  },
+  AppFooter: {
+    fontSize: '0.8rem',
+    textAlign: 'center',
+    fontStyle: 'italic',
+    marginTop: '1em',
   },
 });
 
