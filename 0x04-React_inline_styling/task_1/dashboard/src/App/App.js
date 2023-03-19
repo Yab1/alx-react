@@ -69,7 +69,7 @@ class App extends Component {
               Accusantium quos cum neque est rem ab?
             </p>
           </BodySection>
-          <Footer className={css(styles.AppFooter)} />
+          <Footer style={styles.AppFooter} />
         </div>
       </>
     );
