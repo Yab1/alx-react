@@ -1,6 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import NotificationItem from './NotificationItem';
+import { StyleSheetTestUtils } from 'aphrodite';
+
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe(NotificationItem, () => {
   it('should render without a crush', () => {
@@ -12,7 +20,7 @@ describe(NotificationItem, () => {
     const notificationItem = shallow(<NotificationItem />);
     notificationItem.setProps({ type: 'default', value: 'test' });
     expect(notificationItem.html()).toEqual(
-      '<li data-notification-type="default">test</li>'
+      '<li class="default_1tsdo2i" data-notification-type="default">test</li>'
     );
   });
 
@@ -20,7 +28,7 @@ describe(NotificationItem, () => {
     const notificationItem = shallow(<NotificationItem />);
     notificationItem.setProps({ html: '<u>test</u>' });
     expect(notificationItem.html()).toEqual(
-      '<li data-notification-type="default"><u>test</u></li>'
+      '<li class="urgent_137u7ef" data-notification-type="default"><u>test</u></li>'
     );
   });
 });
