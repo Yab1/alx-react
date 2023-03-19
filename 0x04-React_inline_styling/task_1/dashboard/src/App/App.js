@@ -46,7 +46,7 @@ class App extends Component {
   render() {
     const { isLoggedIn } = this.props;
     return (
-      <>
+      <body className={css(styles.body)}>
         <Notifications listNotifications={this.listNotifications} />
         <div className={css(styles.App)}>
           <Header />
@@ -71,7 +71,7 @@ class App extends Component {
           </BodySection>
           <Footer style={styles.AppFooter} />
         </div>
-      </>
+      </body>
     );
   }
 }
@@ -89,6 +89,11 @@ App.defaultProps = {
 };
 
 const styles = StyleSheet.create({
+  body: {
+    padding: '1em',
+    fontFamily: 'Source Serif Pro serif',
+    fontWeight: '400',
+  },
   App: {
     height: '100vh',
     maxWidth: '100vw',
