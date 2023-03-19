@@ -46,7 +46,7 @@ class App extends Component {
   render() {
     const { isLoggedIn } = this.props;
     return (
-      <body className={css(styles.body)}>
+      <div className={css(styles.body)}>
         <Notifications listNotifications={this.listNotifications} />
         <div className={css(styles.App)}>
           <Header />
@@ -71,7 +71,7 @@ class App extends Component {
           </BodySection>
           <Footer style={styles.AppFooter} />
         </div>
-      </body>
+      </div>
     );
   }
 }
