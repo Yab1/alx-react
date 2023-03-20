@@ -14,6 +14,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.state = { displayDrawer: false };
   }
 
   listCourses = [
@@ -33,6 +34,14 @@ class App extends Component {
       alert('Logging you out');
       this.props.logOut();
     }
+  }
+
+  handleDisplayDrawer() {
+    this.setState({ displayDrawer: true });
+  }
+
+  handleHideDrawer() {
+    this.setState({ displayDrawer: false });
   }
 
   componentDidMount() {
