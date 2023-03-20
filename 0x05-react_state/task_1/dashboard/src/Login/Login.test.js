@@ -17,7 +17,7 @@ describe(Login, () => {
   });
   it('should renders 2 input and 2 label tags', () => {
     const login = shallow(<Login />);
-    expect(login.find('input').length).toBe(2);
+    expect(login.find('.input_1h1jh0o').length).toBe(2);
     expect(login.find('label').length).toBe(2);
   });
 });
