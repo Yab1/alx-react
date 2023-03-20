@@ -80,23 +80,6 @@ describe('When ctrl + h is pressed', () => {
     spy.mockRestore();
     app.unmount();
   });
-
-  //
-
-  // it('displayDrawer changes to false when calling handleHideDrawer', () => {
-  //   const wrapper = shallow(<App />);
-  //   expect(wrapper.state().displayDrawer).toEqual(false);
-
-  //   // const instance = wrapper.instance();
-
-  //   wrapper.instance().handleDisplayDrawer();
-
-  //   expect(wrapper.state().displayDrawer).toEqual(true);
-
-  //   wrapper.instance().handleHideDrawer();
-
-  //   expect(wrapper.state().displayDrawer).toEqual(false);
-  // });
 });
 
 describe('0x05. React state', () => {
