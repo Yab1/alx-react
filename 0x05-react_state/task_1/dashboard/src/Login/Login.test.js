@@ -21,3 +21,20 @@ describe(Login, () => {
     expect(login.find('label').length).toBe(2);
   });
 });
+
+describe('test for submit input on form', () => {
+  const login = shallow(<Login />);
+  it('should verify that the submit button is disabled by default', () => {
+    expect(login.find("input[type='submit']").props().disabled).toEqual(true);
+  });
+
+  it('should verify that after changing the value of the two inputs, the button is enabled', () => {
+    login
+      .find('#email')
+      .simulate('change', { target: { value: 'someone@gmail.com' } });
+    login
+      .find('#password')
+      .simulate('change', { target: { value: 'password' } });
+    expect(login.find("input[type='submit']").props().disabled).toEqual(true);
+  });
+});
