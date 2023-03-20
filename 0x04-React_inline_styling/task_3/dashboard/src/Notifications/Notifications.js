@@ -86,6 +86,7 @@ Notifications.defaultProps = {
 
 const styles = StyleSheet.create({
   Notifications: {
+    backgroundColor: 'white',
     padding: '1em',
     border: '2px dashed red',
     position: 'absolute',
@@ -93,6 +94,20 @@ const styles = StyleSheet.create({
     right: '1.9em',
     width: '30vw',
     zIndex: '10',
+    '@media(max-width:900px)': {
+      inset: '0em',
+      width: '99.5vw',
+      fontSize: '20px',
+      padding: '0px',
+      ':nth-child(1n)>:last-child': {
+        padding: '0px',
+        listStyleType: 'none',
+      },
+      ':nth-child(1n)>:last-child > li': {
+        borderBottom: '0.1em solid black',
+        padding: '10px 8px',
+      },
+    },
   },
   menuItem: {
     fontSize: '0.8rem',

@@ -3,35 +3,54 @@ import { StyleSheet, css } from 'aphrodite';
 
 const Login = () => {
   return (
-    <div className={css(styles.AppBody)}>
+    <>
       <p className={css(styles.p)}>Login to access the full dashboard</p>
-      <label htmlFor="email">Email:</label>
-      <input className={css(styles.input)} type="email" id="email" />
-      <label htmlFor="password">Password:</label>
-      <input className={css(styles.input)} type="password" id="password" />
-      <button className={css(styles.button)}>OK</button>
-    </div>
+      <form action="#" className={css(styles.AppBody)}>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input className={css(styles.input)} type="email" id="email" />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input className={css(styles.input)} type="password" id="password" />
+        </div>
+        <button className={css(styles.button)}>OK</button>
+      </form>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   AppBody: {
+    display: 'flex',
     fontSize: '0.8rem',
-    height: '10em',
-    margin: '3em',
-    marginBottom: '20vh',
+    marginLeft: '1.2em',
+    marginBottom: '15vh',
+    '@media(max-width:900px)': {
+      flexDirection: 'column',
+    },
   },
   p: {
-    marginBottom: '1em',
+    marginLeft: '0.8em',
   },
   button: {
     backgroundColor: 'transparent',
     border: '0.1em solid rgb(180, 178, 178)',
+    height: '1.7em',
+    ':hover': {
+      borderColor: 'rgb(244, 188, 105)',
+    },
+    '@media(max-width:900px)': {
+      width: '2.6em',
+    },
   },
   input: {
     border: '0.1em solid rgb(180, 178, 178)',
     padding: '0.2em',
     margin: '0 0.8em',
+    '@media(max-width:900px)': {
+      border: 'none',
+    },
   },
 });
 

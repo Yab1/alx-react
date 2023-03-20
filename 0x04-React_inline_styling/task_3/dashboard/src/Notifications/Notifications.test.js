@@ -73,11 +73,7 @@ describe('Notification component tests', () => {
   });
   it('should display the div.Notifications when displayDrawer is true', () => {
     const notification = shallow(<Notifications displayDrawer={true} />);
-    expect(
-      notification
-        .setProps({ displayDrawer: true })
-        .exists('.Notifications_1vd86y5')
-    ).toBe(true);
+    expect(notification.exists('.Notifications_vuoyd')).toBe(true);
   });
 
   it('should render correctly when listNotifications passes an empty array is passed', () => {
