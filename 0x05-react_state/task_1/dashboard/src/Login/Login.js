@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 
 const Login = () => {
@@ -16,6 +16,15 @@ const Login = () => {
   const handleChangePassword = (event) => {
     setPassword(event.target.value);
   };
+
+  useEffect(() => {
+    if (email !== '' && password !== '') {
+      setEnableSubmit(true);
+    } else if (setEnableSubmit !== false) {
+      setEnableSubmit(false);
+    }
+  }),
+    [email, password];
   return (
     <>
       <p className={css(styles.p)}>Login to access the full dashboard</p>
@@ -44,6 +53,8 @@ const Login = () => {
           className={css(styles.submit)}
           type="submit"
           onClick={handleLoginSubmit}
+          disabled={!enableSubmit}
+          // disabled={!enableSubmit}
         />
       </form>
     </>
@@ -68,8 +79,10 @@ const styles = StyleSheet.create({
     border: '0.1em solid rgb(180, 178, 178)',
     height: '1.7em',
     width: '5em',
-    ':hover': {
-      borderColor: 'rgb(244, 188, 105)',
+    ':disabled=false': {
+      ':hover': {
+        borderColor: 'rgb(244, 188, 105)',
+      },
     },
   },
   input: {
