@@ -56,7 +56,12 @@ class App extends Component {
     const { isLoggedIn } = this.props;
     return (
       <div className={css(styles.body)}>
-        <Notifications listNotifications={this.listNotifications} />
+        <Notifications
+          listNotifications={this.listNotifications}
+          displayDrawer={this.state.displayDrawer}
+          handleDisplayDrawer={this.handleDisplayDrawer}
+          handleHideDrawer={this.handleHideDrawer}
+        />
         <div className={css(styles.App)}>
           <Header />
           <hr className={css(styles.Horizontal)} />
