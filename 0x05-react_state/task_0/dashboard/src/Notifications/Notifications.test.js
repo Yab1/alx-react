@@ -159,3 +159,40 @@ describe('onclick event behaves as it should', () => {
     spy.mockRestore();
   });
 });
+
+describe('0x05. React state', () => {
+  it('should verify that clicking on the menu item calls handleDisplayDrawer', () => {
+    const handleDisplayDrawer = jest.fn();
+    const handleHideDrawer = jest.fn();
+    const notification = shallow(
+      <Notifications
+        handleDisplayDrawer={handleDisplayDrawer}
+        handleHideDrawer={handleHideDrawer}
+      />
+    );
+    notification.find('div').at(0).simulate('click');
+
+    expect(handleDisplayDrawer).toHaveBeenCalled();
+    expect(handleHideDrawer).not.toHaveBeenCalled();
+
+    jest.restoreAllMocks();
+  });
+
+  it('should verify that clicking on the button calls handleHideDrawer', () => {
+    const handleDisplayDrawer = jest.fn();
+    const handleHideDrawer = jest.fn();
+    const notification = shallow(
+      <Notifications
+        displayDrawer={true}
+        handleDisplayDrawer={handleDisplayDrawer}
+        handleHideDrawer={handleHideDrawer}
+      />
+    );
+    notification.find('button').at(0).simulate('click');
+
+    expect(handleDisplayDrawer).not.toHaveBeenCalled();
+    expect(handleHideDrawer).toHaveBeenCalled();
+
+    jest.restoreAllMocks();
+  });
+});
