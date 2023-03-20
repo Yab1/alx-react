@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 
 const Login = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLoginSubmit = () => {
+    setIsLoggedIn(true);
+  };
   return (
     <>
       <p className={css(styles.p)}>Login to access the full dashboard</p>
@@ -14,7 +19,11 @@ const Login = () => {
           <label htmlFor="password">Password:</label>
           <input className={css(styles.input)} type="password" id="password" />
         </div>
-        <button className={css(styles.button)}>OK</button>
+        <input
+          className={css(styles.submit)}
+          type="submit"
+          onClick={handleLoginSubmit}
+        />
       </form>
     </>
   );
@@ -33,15 +42,13 @@ const styles = StyleSheet.create({
   p: {
     marginLeft: '0.8em',
   },
-  button: {
+  submit: {
     backgroundColor: 'transparent',
     border: '0.1em solid rgb(180, 178, 178)',
     height: '1.7em',
+    width: '5em',
     ':hover': {
       borderColor: 'rgb(244, 188, 105)',
-    },
-    '@media(max-width:900px)': {
-      width: '2.6em',
     },
   },
   input: {
