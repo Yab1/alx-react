@@ -80,4 +80,46 @@ describe('When ctrl + h is pressed', () => {
     spy.mockRestore();
     app.unmount();
   });
+
+  //
+
+  // it('displayDrawer changes to false when calling handleHideDrawer', () => {
+  //   const wrapper = shallow(<App />);
+  //   expect(wrapper.state().displayDrawer).toEqual(false);
+
+  //   // const instance = wrapper.instance();
+
+  //   wrapper.instance().handleDisplayDrawer();
+
+  //   expect(wrapper.state().displayDrawer).toEqual(true);
+
+  //   wrapper.instance().handleHideDrawer();
+
+  //   expect(wrapper.state().displayDrawer).toEqual(false);
+  // });
+});
+
+describe('0x05. React state', () => {
+  const app = shallow(<App />);
+  it('should verify that the default state for displayDrawer false', () => {
+    expect(app.state().displayDrawer).toEqual(false);
+  });
+
+  it('should change displayDrawer to true when handleDisplayDrawer is called', () => {
+    expect(app.state().displayDrawer).toEqual(false);
+
+    const instance = app.instance();
+    instance.handleDisplayDrawer();
+
+    expect(app.state().displayDrawer).toEqual(true);
+  });
+
+  it('should change displayDrawer to false when handleHideDrawer is called', () => {
+    expect(app.state().displayDrawer).toBe(true);
+
+    const instance = app.instance();
+    instance.handleHideDrawer();
+
+    expect(app.state().displayDrawer).toBe(false);
+  });
 });
