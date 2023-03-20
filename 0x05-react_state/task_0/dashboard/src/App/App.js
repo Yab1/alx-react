@@ -13,8 +13,11 @@ import { StyleSheet, css } from 'aphrodite';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
+
     this.state = { displayDrawer: false };
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
+    this.handleHideDrawer = this.handleHideDrawer.bind(this);
   }
 
   listCourses = [
@@ -57,6 +60,7 @@ class App extends Component {
     return (
       <div className={css(styles.body)}>
         <Notifications
+          key={this.state.displayDrawer}
           listNotifications={this.listNotifications}
           displayDrawer={this.state.displayDrawer}
           handleDisplayDrawer={this.handleDisplayDrawer}
