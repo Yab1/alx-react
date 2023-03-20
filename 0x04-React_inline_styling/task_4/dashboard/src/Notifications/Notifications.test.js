@@ -56,7 +56,9 @@ describe('Notification component tests', () => {
 
   it('should display the  menuItem div when displayDrawer is false', () => {
     expect(
-      notification.setProps({ displayDrawer: false }).exists('.menuItem_f2e8m0')
+      notification
+        .setProps({ displayDrawer: false })
+        .exists('.menuItem_1vx6roq')
     ).toBe(true);
   });
   it('should not display the div.Notifications when displayDrawer is false', () => {
@@ -68,7 +70,7 @@ describe('Notification component tests', () => {
   it('should display the  menuItem div when displayDrawer is true', () => {
     const notification = shallow(<Notifications displayDrawer={true} />);
     expect(
-      notification.setProps({ displayDrawer: true }).exists('.menuItem_f2e8m0')
+      notification.setProps({ displayDrawer: true }).exists('.menuItem_1vx6roq')
     ).toBe(true);
   });
   it('should display the div.Notifications when displayDrawer is true', () => {

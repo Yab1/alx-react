@@ -84,6 +84,18 @@ Notifications.defaultProps = {
   listNotifications: [],
 };
 
+const opacityAnim = {
+  '0%': { opacity: 0.5 },
+  '100%': { opacity: 1 },
+};
+
+const bounceAnim = {
+  '0%': { transform: 'translateY(0px)' },
+  '33%': { transform: 'translateY(-5px)' },
+  '66%': { transform: 'translateY(5px)' },
+  '100%': { transform: 'translateY(0px)' },
+};
+
 const styles = StyleSheet.create({
   Notifications: {
     backgroundColor: 'white',
@@ -113,6 +125,12 @@ const styles = StyleSheet.create({
     fontSize: '0.8rem',
     textAlign: 'end',
     paddingRight: '1.2em',
+    ':hover': {
+      cursor: 'pointer',
+      animationName: [opacityAnim, bounceAnim],
+      animationDuration: '1s, 0.5s',
+      animationIterationCount: '3',
+    },
   },
 });
 
