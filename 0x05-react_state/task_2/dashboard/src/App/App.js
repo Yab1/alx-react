@@ -9,12 +9,18 @@ import { getLatestNotification } from '../utils/utils';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import BodySection from '../BodySection/BodySection';
 import { StyleSheet, css } from 'aphrodite';
+import { AppContext, user, logOut } from './AppContext';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { displayDrawer: false };
+    this.state = {
+      displayDrawer: false,
+      user: this.user,
+      logOut: this.logOut,
+    };
+
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
