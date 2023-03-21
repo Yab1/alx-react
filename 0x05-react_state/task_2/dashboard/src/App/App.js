@@ -17,10 +17,11 @@ class App extends Component {
 
     this.state = {
       displayDrawer: false,
-      user: this.user,
-      logOut: this.logOut,
+      user: user,
+      logOut: logOut,
     };
 
+    console.log(this.state.displayDrawer);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
