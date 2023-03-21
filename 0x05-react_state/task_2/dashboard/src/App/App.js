@@ -21,10 +21,11 @@ class App extends Component {
       logOut: logOut,
     };
 
-    console.log(this.state.displayDrawer);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
+    this.logIn = this.logIn.bind(this);
+    this.logOut = this.logOut.bind(this);
   }
 
   listCourses = [
@@ -42,7 +43,6 @@ class App extends Component {
   handleKeyPress(e) {
     if (e.ctrlKey && e.key === 'h') {
       alert('Logging you out');
-      this.props.logOut();
     }
   }
 
@@ -62,8 +62,22 @@ class App extends Component {
     document.removeEventListener('keypress', this.handleKeyPress);
   }
 
+  logIn(email, password) {
+    this.setState({
+      user: {
+        email: email,
+        password: password,
+        isLoggedIn: true,
+      },
+    });
+  }
+  logOut() {
+    this.setState({
+      user: user,
+    });
+  }
+
   render() {
-    const { isLoggedIn } = this.props;
     return (
       <div className={css(styles.body)}>
         <Notifications
@@ -77,13 +91,13 @@ class App extends Component {
           <Header />
           <hr className={css(styles.Horizontal)} />
           <>
-            {isLoggedIn ? (
+            {this.state.user.isLoggedIn ? (
               <BodySectionWithMarginBottom title="Course List">
                 <CourseList listCourses={this.listCourses} />
               </BodySectionWithMarginBottom>
             ) : (
               <BodySectionWithMarginBottom>
-                <Login />
+                <Login logIn={this.logIn} />
               </BodySectionWithMarginBottom>
             )}
           </>
@@ -100,18 +114,6 @@ class App extends Component {
     );
   }
 }
-
-App.propTypes = {
-  isLoggedIn: PropTypes.bool,
-  logOut: PropTypes.func,
-};
-
-App.defaultProps = {
-  isLoggedIn: false,
-  logOut: () => {
-    return;
-  },
-};
 
 const styles = StyleSheet.create({
   body: {
