@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 
-const Login = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const Login = ({ logIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [enableSubmit, setEnableSubmit] = useState(false);
 
   const handleLoginSubmit = () => {
-    setIsLoggedIn(true);
+    logIn();
   };
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
@@ -54,7 +53,6 @@ const Login = () => {
           type="submit"
           onClick={handleLoginSubmit}
           disabled={!enableSubmit}
-          // disabled={!enableSubmit}
         />
       </form>
     </>
