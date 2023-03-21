@@ -6,8 +6,8 @@ const Login = ({ logIn }) => {
   const [password, setPassword] = useState('');
   const [enableSubmit, setEnableSubmit] = useState(false);
 
-  const handleLoginSubmit = () => {
-    logIn();
+  const handleLoginSubmit = (event) => {
+    logIn(email, password);
   };
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
