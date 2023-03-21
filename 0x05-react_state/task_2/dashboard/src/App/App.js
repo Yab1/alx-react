@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header.js';
 import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
-import PropTypes from 'prop-types';
 import CourseList from '../CourseList/CourseList';
 import { getLatestNotification } from '../utils/utils';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import BodySection from '../BodySection/BodySection';
 import { StyleSheet, css } from 'aphrodite';
-import { AppContext, user, logOut } from './AppContext';
+import { AppContext, user } from './AppContext';
 
 class App extends Component {
   constructor(props) {
@@ -18,7 +17,7 @@ class App extends Component {
     this.state = {
       displayDrawer: false,
       user: user,
-      logOut: logOut,
+      logOut: this.logOut,
     };
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -43,6 +42,7 @@ class App extends Component {
   handleKeyPress(e) {
     if (e.ctrlKey && e.key === 'h') {
       alert('Logging you out');
+      this.state.logOut();
     }
   }
 
@@ -62,7 +62,7 @@ class App extends Component {
     document.removeEventListener('keypress', this.handleKeyPress);
   }
 
-  logIn(email, password) {
+  logIn = (email, password) => {
     this.setState({
       user: {
         email: email,
@@ -70,19 +70,19 @@ class App extends Component {
         isLoggedIn: true,
       },
     });
-  }
-  logOut() {
+  };
+  logOut = () => {
     this.setState({
       user: user,
     });
-  }
+  };
 
   render() {
     return (
       <AppContext.Provider
         value={{
           user: this.state.user,
-          logOut: this.state.logOut,
+          logout: this.state.logOut,
         }}
       >
         <div className={css(styles.body)}>
