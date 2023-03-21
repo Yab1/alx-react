@@ -79,38 +79,45 @@ class App extends Component {
 
   render() {
     return (
-      <div className={css(styles.body)}>
-        <Notifications
-          key={this.state.displayDrawer}
-          listNotifications={this.listNotifications}
-          displayDrawer={this.state.displayDrawer}
-          handleDisplayDrawer={this.handleDisplayDrawer}
-          handleHideDrawer={this.handleHideDrawer}
-        />
-        <div className={css(styles.App)}>
-          <Header />
-          <hr className={css(styles.Horizontal)} />
-          <>
-            {this.state.user.isLoggedIn ? (
-              <BodySectionWithMarginBottom title="Course List">
-                <CourseList listCourses={this.listCourses} />
-              </BodySectionWithMarginBottom>
-            ) : (
-              <BodySectionWithMarginBottom>
-                <Login logIn={this.logIn} />
-              </BodySectionWithMarginBottom>
-            )}
-          </>
-          <hr className={css(styles.Horizontal)} />
-          <BodySection title="News from the School">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Accusantium quos cum neque est rem ab?
-            </p>
-          </BodySection>
-          <Footer style={styles.AppFooter} />
+      <AppContext.Provider
+        value={{
+          user: this.state.user,
+          logOut: this.state.logOut,
+        }}
+      >
+        <div className={css(styles.body)}>
+          <Notifications
+            key={this.state.displayDrawer}
+            listNotifications={this.listNotifications}
+            displayDrawer={this.state.displayDrawer}
+            handleDisplayDrawer={this.handleDisplayDrawer}
+            handleHideDrawer={this.handleHideDrawer}
+          />
+          <div className={css(styles.App)}>
+            <Header />
+            <hr className={css(styles.Horizontal)} />
+            <>
+              {this.state.user.isLoggedIn ? (
+                <BodySectionWithMarginBottom title="Course List">
+                  <CourseList listCourses={this.listCourses} />
+                </BodySectionWithMarginBottom>
+              ) : (
+                <BodySectionWithMarginBottom>
+                  <Login logIn={this.logIn} />
+                </BodySectionWithMarginBottom>
+              )}
+            </>
+            <hr className={css(styles.Horizontal)} />
+            <BodySection title="News from the School">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Accusantium quos cum neque est rem ab?
+              </p>
+            </BodySection>
+            <Footer style={styles.AppFooter} />
+          </div>
         </div>
-      </div>
+      </AppContext.Provider>
     );
   }
 }
