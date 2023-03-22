@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { getFullYear, getFooterCopy } from '../utils/utils';
 import PropTypes from 'prop-types';
+import { AppContext } from '../App/AppContext';
 
 const Footer = ({ style }) => {
-  const AppFooter = style._definition;
+  // const AppFooter = style._definition;
+  const { user } = useContext(AppContext);
   return (
-    <footer style={AppFooter}>
+    <footer style={style._definition}>
+      {user.isLoggedIn && (
+        <p>
+          <a href="#">Contact us</a>
+        </p>
+      )}
       <p>
         Copyright {getFullYear()} - {getFooterCopy()}
       </p>
