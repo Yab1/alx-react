@@ -13,7 +13,7 @@ const Header = () => {
       </header>
 
       {user.isLoggedIn && (
-        <section id="logoutSection">
+        <section className={css(styles.greeting)} id="logoutSection">
           Welcome <strong>{user.email} </strong>
           <em>
             <a href="#" onClick={logout}>
