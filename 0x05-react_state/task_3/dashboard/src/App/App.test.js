@@ -107,7 +107,7 @@ describe('0x05. React state', () => {
     expect(app.state().displayDrawer).toBe(false);
   });
 
-  it(`verify that markNotificationAsRead works as intended, deletes the notification with the passed id from the listNotifications array`, () => {
+  it('should verify that markNotificationAsRead works as intended, deletes the notification with the passed id from the listNotifications array', () => {
     const context = {
       listNotifications: [
         { id: 1, type: 'default', value: 'New course available' },
