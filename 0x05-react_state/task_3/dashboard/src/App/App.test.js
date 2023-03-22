@@ -9,6 +9,7 @@ import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
 import { StyleSheetTestUtils } from 'aphrodite';
+import { AppContext } from './AppContext';
 
 beforeEach(() => {
   StyleSheetTestUtils.suppressStyleInjection();
@@ -104,5 +105,35 @@ describe('0x05. React state', () => {
     instance.handleHideDrawer();
 
     expect(app.state().displayDrawer).toBe(false);
+  });
+
+  it(`verify that markNotificationAsRead works as intended, deletes the notification with the passed id from the listNotifications array`, () => {
+    const context = {
+      listNotifications: [
+        { id: 1, type: 'default', value: 'New course available' },
+        { id: 2, type: 'urgent', value: 'New resume available' },
+        { id: 3, html: { __html: jest.fn() }, type: 'urgent' },
+      ],
+    };
+
+    const app = mount(
+      <AppContext.Provider value={context}>
+        <App />
+      </AppContext.Provider>
+    );
+
+    const instance = app.instance();
+
+    instance.markNotificationAsRead(3);
+
+    expect(app.state().listNotifications).toEqual([
+      { id: 1, type: 'default', value: 'New course available' },
+      { id: 2, type: 'urgent', value: 'New resume available' },
+    ]);
+
+    expect(app.state().listNotifications.length).toBe(2);
+    expect(app.state().listNotifications[3]).toBe(undefined);
+
+    app.unmount();
   });
 });
