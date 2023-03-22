@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { AppContext } from '../App/AppContext';
 
 const Footer = ({ style }) => {
-  // const AppFooter = style._definition;
+  const AppFooter = style._definition;
   const { user } = useContext(AppContext);
   return (
-    <footer style={style._definition}>
+    <footer style={AppFooter}>
       {user.isLoggedIn && (
         <p>
           <a href="#">Contact us</a>
