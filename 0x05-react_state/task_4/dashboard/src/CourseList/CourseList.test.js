@@ -33,13 +33,13 @@ describe('CourseList component', () => {
     expect(courseList.find('thead').children()).toHaveLength(2);
     expect(courseList.find('tbody').children()).toHaveLength(3);
     expect(courseList.find('tbody').childAt(0).html()).toEqual(
-      '<tr class="normal_y7r86x"><td class="td_u5zuyk">ES6</td><td class="td_u5zuyk">60</td></tr>'
+      '<tr style="background-color:#f5f5f5ab"><td><input type="checkbox"/>ES6</td><td class="td_u5zuyk">60</td></tr>'
     );
     expect(courseList.find('tbody').childAt(1).html()).toEqual(
-      '<tr class="normal_y7r86x"><td class="td_u5zuyk">Webpack</td><td class="td_u5zuyk">20</td></tr>'
+      '<tr style="background-color:#f5f5f5ab"><td><input type="checkbox"/>Webpack</td><td class="td_u5zuyk">20</td></tr>'
     );
     expect(courseList.find('tbody').childAt(2).html()).toEqual(
-      '<tr class="normal_y7r86x"><td class="td_u5zuyk">React</td><td class="td_u5zuyk">40</td></tr>'
+      '<tr style="background-color:#f5f5f5ab"><td><input type="checkbox"/>React</td><td class="td_u5zuyk">40</td></tr>'
     );
   });
 });
