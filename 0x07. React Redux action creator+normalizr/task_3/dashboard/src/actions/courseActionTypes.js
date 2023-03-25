@@ -6,3 +6,5 @@ const UNSELECT_COURSE = {
   type: 'Course/UNSELECT_COURSE',
   payload: 'Define whether a user selected unspecific course',
 };
+
+export default { SELECT_COURSE, UNSELECT_COURSE };
