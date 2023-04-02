@@ -1,5 +1,5 @@
 import getAllNotificationsByUser, { normalized } from './notifications';
-import notificationData from '../../notifications.json';
+import notificationData from 'dashboard/dist/notifications.json';
 
 describe('Test for Notifications.js', () => {
   it('should return the right data based on userId', () => {

@@ -14,6 +14,9 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 
+const middleWares = [thunk];
+const mockStore = configureStore(middleWares);
+
 describe('tests for action creators', () => {
   it('should return right action payload and type when login is called', () => {
     const email = 'someone@gmail.com';
