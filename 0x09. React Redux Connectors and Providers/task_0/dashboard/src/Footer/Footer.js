@@ -1,30 +1,22 @@
-import React, { useContext } from 'react';
-import { getFullYear, getFooterCopy } from '../utils/utils';
-import PropTypes from 'prop-types';
-import { AppContext } from '../App/AppContext';
+import React from "react";
+import { getFullYear, getFooterCopy } from "../utils/utils";
+import AppContext from "../App/AppContext";
 
-const Footer = ({ style }) => {
-  const AppFooter = style._definition;
-  const { user } = useContext(AppContext);
+function Footer() {
   return (
-    <footer style={AppFooter}>
-      {user.isLoggedIn && (
-        <p>
-          <a href="#">Contact us</a>
-        </p>
-      )}
-      <p>
-        Copyright {getFullYear()} - {getFooterCopy()}
-      </p>
-    </footer>
+    <AppContext.Consumer>
+      {(context) => {
+        return (
+          <div className="footer">
+            <p>
+              Copyright {getFullYear()} - {getFooterCopy(true)}
+            </p>
+            {context.user.isLoggedIn && <a href="#">Contact us</a>}
+          </div>
+        );
+      }}
+    </AppContext.Consumer>
   );
-};
-
-Footer.propTypes = {
-  style: PropTypes.object,
-};
-Footer.defaultProps = {
-  style: { _definition: {} },
-};
+}
 
 export default Footer;
