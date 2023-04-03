@@ -11,6 +11,11 @@ import Footer from '../Footer/Footer';
 import { StyleSheetTestUtils } from 'aphrodite';
 import { AppContext } from './AppContext';
 
+import { fromJS } from 'immutable';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import uiReducer, { initialState } from '../reducers/uiReducer';
+
 beforeEach(() => {
   StyleSheetTestUtils.suppressStyleInjection();
 });
@@ -135,5 +140,19 @@ describe('0x05. React state', () => {
     expect(app.state().listNotifications[3]).toBe(undefined);
 
     app.unmount();
+  });
+});
+
+const store = createStore(uiReducer, initialState);
+
+describe('<App />', () => {
+  it('mapStateToProps returns the right object from user Login', () => {
+    let state = fromJS({
+      isUserLoggedIn: true,
+    });
+
+    const result = mapStateToProps(state);
+
+    expect(result).toEqual({ isLoggedIn: true });
   });
 });
