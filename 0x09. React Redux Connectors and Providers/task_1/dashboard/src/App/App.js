@@ -1,175 +1,214 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Notifications from '../Notifications/Notifications';
-import Header from '../Header/Header.js';
-import Login from '../Login/Login';
-import Footer from '../Footer/Footer';
-import CourseList from '../CourseList/CourseList';
-import { getLatestNotification } from '../utils/utils';
-import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
+import Header from '../Header/Header';
 import BodySection from '../BodySection/BodySection';
+import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
+import Login from '../Login/Login';
+import CourseList from '../CourseList/CourseList';
+import Footer from '../Footer/Footer';
+import PropTypes from 'prop-types';
+import { getLatestNotification } from '../utils/utils';
 import { StyleSheet, css } from 'aphrodite';
-import { AppContext, user } from './AppContext';
+import { user, logOut } from './AppContext';
+import AppContext from './AppContext';
 import {
-  displayNotificationDrawer,
-  hideNotificationDrawer,
+	displayNotificationDrawer,
+	hideNotificationDrawer,
 } from '../actions/uiActionCreators';
 
+const listCourses = [
+	{ id: 1, name: 'ES6', credit: 60 },
+	{ id: 2, name: 'Webpack', credit: 20 },
+	{ id: 3, name: 'React', credit: 40 },
+];
+
+export const listNotificationsInitialState = [
+	{ id: 1, type: 'default', value: 'New course available' },
+	{ id: 2, type: 'urgent', value: 'New resume available' },
+	{ id: 3, type: 'urgent', html: { __html: getLatestNotification() } },
+];
+
+document.body.style.margin = 0;
+
 class App extends Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
+		this.handleKeyCombination = this.handleKeyCombination.bind(this);
+		this.logIn = this.logIn.bind(this);
+		this.logOut = this.logOut.bind(this);
+		this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
+		this.state = {
+			displayDrawer: false,
+			user,
+			logOut: this.logOut,
+			listNotifications: listNotificationsInitialState,
+		};
+	}
 
-    this.state = {
-      displayDrawer: false,
-      user: user,
-      logOut: this.logOut,
-      listNotifications: [
-        { id: 1, type: 'default', value: 'New course available' },
-        { id: 2, type: 'urgent', value: 'New resume available' },
-        { id: 3, type: 'urgent', html: getLatestNotification() },
-      ],
-    };
+	handleKeyCombination(e) {
+		if (e.key === 'h' && e.ctrlKey) {
+			alert('Logging you out');
+			this.state.logOut();
+		}
+	}
 
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
-    this.handleHideDrawer = this.handleHideDrawer.bind(this);
-    this.logIn = this.logIn.bind(this);
-    this.logOut = this.logOut.bind(this);
-    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
-    this.mapStateToProps = this.mapStateToProps.bind(this);
-  }
+	logIn(email, password) {
+		this.setState({
+			user: {
+				email,
+				password,
+				isLoggedIn: true,
+			},
+		});
+	}
 
-  listCourses = [
-    { id: 1, name: 'ES6', credit: 60 },
-    { id: 2, name: 'Webpack', credit: 20 },
-    { id: 3, name: 'React', credit: 40 },
-  ];
+	logOut() {
+		this.setState({ user });
+	}
 
-  handleKeyPress(e) {
-    if (e.ctrlKey && e.key === 'h') {
-      alert('Logging you out');
-      this.state.logOut();
-    }
-  }
+	markNotificationAsRead(id) {
+		this.setState({
+			listNotifications: this.state.listNotifications.filter((notification) => {
+				return notification.id !== id;
+			}),
+		});
+	}
 
-  handleDisplayDrawer() {
-    this.setState({ displayDrawer: true });
-  }
+	componentDidMount() {
+		document.addEventListener('keydown', this.handleKeyCombination);
+	}
 
-  handleHideDrawer() {
-    this.setState({ displayDrawer: false });
-  }
+	componentWillUnmount() {
+		document.removeEventListener('keydown', this.handleKeyCombination);
+	}
 
-  componentDidMount() {
-    document.addEventListener('keypress', this.handleKeyPress);
-  }
+	render() {
+		const { user, logOut, listNotifications } = this.state;
 
-  componentWillUnmount() {
-    document.removeEventListener('keypress', this.handleKeyPress);
-  }
+		const {
+			isLoggedIn,
+			displayDrawer,
+			displayNotificationDrawer,
+			hideNotificationDrawer,
+		} = this.props;
 
-  logIn = (email, password) => {
-    this.setState({
-      user: {
-        email: email,
-        password: password,
-        isLoggedIn: true,
-      },
-    });
-  };
-  logOut = () => {
-    this.setState({
-      user: user,
-    });
-  };
-  markNotificationAsRead(id) {
-    this.setState({
-      listNotifications: this.state.listNotifications.filter(
-        (course) => course.id !== id
-      ),
-    });
-  }
-  render() {
-    return (
-      <AppContext.Provider
-        value={{
-          user: this.state.user,
-          logout: this.state.logOut,
-        }}
-      >
-        <div className={css(styles.body)}>
-          <Notifications
-            key={this.state.displayDrawer}
-            listNotifications={this.state.listNotifications}
-            displayDrawer={this.state.displayDrawer}
-            handleDisplayDrawer={this.handleDisplayDrawer}
-            handleHideDrawer={this.handleHideDrawer}
-            markNotificationAsRead={this.markNotificationAsRead}
-          />
-          <div className={css(styles.App)}>
-            <Header />
-            <hr className={css(styles.Horizontal)} />
-            <>
-              {this.state.user.isLoggedIn ? (
-                <BodySectionWithMarginBottom title="Course List">
-                  <CourseList listCourses={this.listCourses} />
-                </BodySectionWithMarginBottom>
-              ) : (
-                <BodySectionWithMarginBottom>
-                  <Login logIn={this.logIn} />
-                </BodySectionWithMarginBottom>
-              )}
-            </>
-            <hr className={css(styles.Horizontal)} />
-            <BodySection title="News from the School">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Accusantium quos cum neque est rem ab?
-              </p>
-            </BodySection>
-            <Footer style={styles.AppFooter} />
-          </div>
-        </div>
-      </AppContext.Provider>
-    );
-  }
+		const value = { user, logOut };
+
+		return (
+			<AppContext.Provider value={value}>
+				<Notifications
+					listNotifications={listNotifications}
+					displayDrawer={displayDrawer}
+					handleDisplayDrawer={displayNotificationDrawer}
+					handleHideDrawer={hideNotificationDrawer}
+					markNotificationAsRead={this.markNotificationAsRead}
+				/>
+				<div className={css(styles.container)}>
+					<div className={css(styles.app)}>
+						<Header />
+					</div>
+					<div className={css(styles.appBody)}>
+						{!isLoggedIn ? (
+							<BodySectionWithMarginBottom title='Log in to continue'>
+								<Login logIn={this.logIn} />
+							</BodySectionWithMarginBottom>
+						) : (
+							<BodySectionWithMarginBottom title='Course list'>
+								<CourseList listCourses={listCourses} />
+							</BodySectionWithMarginBottom>
+						)}
+					</div>
+					<BodySection title='News from the School'>
+						<p>
+							Lorem Ipsum is simply dummy text of the printing and typesetting
+							industry. Lorem Ipsum has been the industry's standard dummy text
+							ever since the 1500s, when an unknown printer took a galley of
+							type and scrambled it to make a type specimen book. It has
+							survived not only five centuries, but also the leap into
+							electronic typesetting, remaining essentially unchanged. It was
+							popularised in the 1960s with the release of Letraset sheets
+							containing Lorem Ipsum passages, and more recently with desktop
+							publishing software like Aldus PageMaker including versions of
+							Lorem Ipsum.
+						</p>
+					</BodySection>
+
+					<div className={css(styles.footer)}>
+						<Footer />
+					</div>
+				</div>
+			</AppContext.Provider>
+		);
+	}
 }
 
+App.defaultProps = {
+	isLoggedIn: false,
+	displayDrawer: false,
+	displayNotificationDrawer: () => {},
+	hideNotificationDrawer: () => {},
+};
+
+App.propTypes = {
+	isLoggedIn: PropTypes.bool,
+	displayDrawer: PropTypes.bool,
+	displayNotificationDrawer: PropTypes.func,
+	hideNotificationDrawer: PropTypes.func,
+};
+
+const cssVars = {
+	mainColor: '#e01d3f',
+};
+
+const screenSize = {
+	small: '@media screen and (max-width: 900px)',
+};
+
 const styles = StyleSheet.create({
-  body: {
-    padding: '1em',
-    fontFamily: 'Source Serif Pro serif',
-    fontWeight: '400',
-  },
-  App: {
-    height: '100vh',
-    maxWidth: '100vw',
-    position: 'relative',
-  },
-  Horizontal: {
-    height: '0.1em',
-    width: '99%',
-    backgroundColor: 'rgb(225, 52, 75)',
-    border: 'none',
-  },
-  AppFooter: {
-    fontSize: '0.8rem',
-    textAlign: 'center',
-    fontStyle: 'italic',
-    marginTop: '1em',
-  },
+	container: {
+		width: 'calc(100% - 16px)',
+		marginLeft: '8px',
+		marginRight: '8px',
+	},
+
+	app: {
+		borderBottom: `3px solid ${cssVars.mainColor}`,
+	},
+
+	appBody: {
+		display: 'flex',
+		justifyContent: 'center',
+	},
+
+	footer: {
+		borderTop: `3px solid ${cssVars.mainColor}`,
+		width: '100%',
+		display: 'flex',
+		justifyContent: 'center',
+		textAlign: 'center',
+		position: 'fixed',
+		paddingBottom: '10px',
+		bottom: 0,
+		fontStyle: 'italic',
+		[screenSize.small]: {
+			position: 'static',
+		},
+	},
 });
+
 export const mapStateToProps = (state) => {
-  return {
-    isLoggedIn: state.get('isUserLoggedIn'),
-    displayDrawer: state.get('isNotificationDrawerVisible'),
-  };
+	return {
+		isLoggedIn: state.get('isUserLoggedIn'),
+		displayDrawer: state.get('isNotificationDrawerVisible'),
+	};
 };
 
 export const mapDispatchToProps = {
-  displayNotificationDrawer,
-  hideNotificationDrawer,
+	displayNotificationDrawer,
+	hideNotificationDrawer,
 };
-// export default App
+
+// export default App;
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

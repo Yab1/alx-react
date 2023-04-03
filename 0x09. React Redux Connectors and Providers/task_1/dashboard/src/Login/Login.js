@@ -1,94 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, css } from 'aphrodite';
+import React, { Component } from "react";
+import { StyleSheet, css } from "aphrodite";
 
-const Login = ({ logIn }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [enableSubmit, setEnableSubmit] = useState(false);
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      enableSubmit: false,
+    };
+    this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
+  }
 
-  const handleLoginSubmit = (event) => {
-    logIn(email, password);
-  };
-  const handleChangeEmail = (event) => {
-    setEmail(event.target.value);
-  };
-  const handleChangePassword = (event) => {
-    setPassword(event.target.value);
-  };
+  handleLoginSubmit(event) {
+    event.preventDefault();
 
-  useEffect(() => {
-    if (email !== '' && password !== '') {
-      setEnableSubmit(true);
-    } else if (setEnableSubmit !== false) {
-      setEnableSubmit(false);
-    }
-  }),
-    [email, password];
-  return (
-    <>
-      <p className={css(styles.p)}>Login to access the full dashboard</p>
-      <form action="#" className={css(styles.AppBody)}>
-        <div>
+    const { email, password } = this.state;
+
+    this.props.logIn(email, password);
+  }
+
+  handleChangeEmail(event) {
+    const { value } = event.target;
+    const { password } = this.state;
+
+    if (value !== "" && password !== "") this.setState({ enableSubmit: true });
+    else this.setState({ enableSubmit: false });
+
+    this.setState({ email: event.target.value });
+  }
+
+  handleChangePassword(event) {
+    const { value } = event.target;
+    const { email } = this.state;
+
+    if (email !== "" && value !== "") this.setState({ enableSubmit: true });
+    else this.setState({ enableSubmit: false });
+
+    this.setState({ password: event.target.value });
+  }
+
+  render() {
+    return (
+      <div className={css(styles.login)}>
+        <p>Login to access the full dashboard</p>
+        <form action="" onSubmit={this.handleLoginSubmit}>
           <label htmlFor="email">Email:</label>
           <input
-            className={css(styles.input)}
             type="email"
             id="email"
-            value={email}
-            onChange={handleChangeEmail}
+            name="email"
+            className={css(styles.loginInput)}
+            value={this.state.email}
+            onChange={this.handleChangeEmail}
           />
-        </div>
-        <div>
           <label htmlFor="password">Password:</label>
           <input
-            className={css(styles.input)}
             type="password"
             id="password"
-            value={password}
-            onChange={handleChangePassword}
+            name="password"
+            className={css(styles.loginInput)}
+            value={this.state.password}
+            onChange={this.handleChangePassword}
           />
-        </div>
-        <input
-          className={css(styles.submit)}
-          type="submit"
-          onClick={handleLoginSubmit}
-          disabled={!enableSubmit}
-        />
-      </form>
-    </>
-  );
+          <input type="submit" disabled={!this.state.enableSubmit} />
+        </form>
+      </div>
+    );
+  }
+}
+
+const screenSize = {
+  small: "@media screen and (max-width: 900px)",
 };
 
 const styles = StyleSheet.create({
-  AppBody: {
-    display: 'flex',
-    fontSize: '0.8rem',
-    marginLeft: '1.2em',
-    marginBottom: '15vh',
-    '@media(max-width:900px)': {
-      flexDirection: 'column',
+  login: {
+    margin: "50px",
+    flexGrow: 1,
+    [screenSize.small]: {
+      marginTop: "10px",
+      marginLeft: 0,
+      marginRight: 0,
+      marginBottom: 0,
     },
   },
-  p: {
-    marginLeft: '0.8em',
-  },
-  submit: {
-    backgroundColor: 'transparent',
-    border: '0.1em solid rgb(180, 178, 178)',
-    height: '1.7em',
-    width: '5em',
-    ':disabled=false': {
-      ':hover': {
-        borderColor: 'rgb(244, 188, 105)',
-      },
-    },
-  },
-  input: {
-    border: '0.1em solid rgb(180, 178, 178)',
-    padding: '0.2em',
-    margin: '0 0.8em',
-    '@media(max-width:900px)': {
-      border: 'none',
+
+  loginInput: {
+    marginLeft: "10px",
+    marginRight: "20px",
+    [screenSize.small]: {
+      display: "block",
+      marginLeft: 0,
+      marginTop: "10px",
+      marginBottom: "10px",
     },
   },
 });

@@ -1,45 +1,105 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import CourseList from './CourseList';
-import { StyleSheetTestUtils } from 'aphrodite';
+import { shallow } from "enzyme";
+import React from "react";
+import CourseList from "./CourseList";
+import { StyleSheetTestUtils } from "aphrodite";
 
-beforeEach(() => {
-  StyleSheetTestUtils.suppressStyleInjection();
-});
-afterEach(() => {
-  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
-});
+describe("<CourseList />", () => {
+  let listCourses;
 
-const listCourses = [
-  { id: 1, name: 'ES6', credit: 60 },
-  { id: 2, name: 'Webpack', credit: 20 },
-  { id: 3, name: 'React', credit: 40 },
-];
-
-describe('CourseList component', () => {
-  const courseList = shallow(<CourseList />);
-
-  it('should renders CourseList component without crashing', () => {
-    expect(courseList.exists()).toBe(true);
+  beforeAll(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+  afterAll(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
   });
 
-  it('should check that it renders the 5 different rows', () => {
-    courseList.setProps({ listCourses: listCourses });
-    expect(courseList.find('CourseListRow')).toHaveLength(5);
+  it("CourseList renders without crashing", () => {
+    const wrapper = shallow(<CourseList />);
+    expect(wrapper.exists()).toEqual(true);
   });
 
-  it('should renders correctly when passed a list of courses', () => {
-    courseList.setProps({ listCourses: listCourses, isHeader: true });
-    expect(courseList.find('thead').children()).toHaveLength(2);
-    expect(courseList.find('tbody').children()).toHaveLength(3);
-    expect(courseList.find('tbody').childAt(0).html()).toEqual(
-      '<tr style="background-color:#f5f5f5ab"><td><input type="checkbox"/>ES6</td><td class="td_u5zuyk">60</td></tr>'
-    );
-    expect(courseList.find('tbody').childAt(1).html()).toEqual(
-      '<tr style="background-color:#f5f5f5ab"><td><input type="checkbox"/>Webpack</td><td class="td_u5zuyk">20</td></tr>'
-    );
-    expect(courseList.find('tbody').childAt(2).html()).toEqual(
-      '<tr style="background-color:#f5f5f5ab"><td><input type="checkbox"/>React</td><td class="td_u5zuyk">40</td></tr>'
-    );
+  describe("CourseList with list of courses", () => {
+    beforeEach(() => {
+      listCourses = [
+        { id: 1, name: "ES6", credit: 60 },
+        { id: 2, name: "Webpack", credit: 20 },
+        { id: 3, name: "React", credit: 40 },
+      ];
+    });
+
+    it("it renders the 5 different rows", () => {
+      const wrapper = shallow(<CourseList listCourses={listCourses} />);
+      wrapper.update();
+      const item = wrapper.find("CourseListRow");
+
+      expect(item).toHaveLength(5);
+
+      expect(item.at(0).prop("textFirstCell")).toEqual("Available courses");
+      expect(item.at(0).prop("isHeader")).toEqual(true);
+
+      expect(item.at(1).prop("textFirstCell")).toEqual("Course name");
+      expect(item.at(1).prop("textSecondCell")).toEqual("Credit");
+      expect(item.at(1).prop("isHeader")).toEqual(true);
+
+      expect(item.at(2).prop("textFirstCell")).toEqual("ES6");
+      expect(item.at(2).prop("textSecondCell")).toEqual(60);
+      expect(item.at(2).prop("isHeader")).toEqual(false);
+
+      expect(item.at(3).prop("textFirstCell")).toEqual("Webpack");
+      expect(item.at(3).prop("textSecondCell")).toEqual(20);
+      expect(item.at(3).prop("isHeader")).toEqual(false);
+
+      expect(item.at(4).prop("textFirstCell")).toEqual("React");
+      expect(item.at(4).prop("textSecondCell")).toEqual(40);
+      expect(item.at(4).prop("isHeader")).toEqual(false);
+    });
+  });
+
+  describe("CourseList without listCourses or empty listCourses", () => {
+    beforeEach(() => {
+      listCourses = [];
+    });
+
+    it("it renders the 3 rows without listCourses  without listCourses", () => {
+      const wrapper = shallow(<CourseList />);
+      expect(wrapper.exists());
+      wrapper.update();
+      const item = wrapper.find("CourseListRow");
+
+      expect(item).toHaveLength(3);
+      expect(item.at(0).prop("textFirstCell")).toEqual("Available courses");
+      expect(item.at(0).prop("isHeader")).toEqual(true);
+
+      expect(item.at(1).prop("textFirstCell")).toEqual("Course name");
+      expect(item.at(1).prop("textSecondCell")).toEqual("Credit");
+      expect(item.at(1).prop("isHeader")).toEqual(true);
+
+      expect(item.at(2).prop("textFirstCell")).toEqual(
+        "No course available yet"
+      );
+      expect(item.at(2).prop("textSecondCell")).toEqual(null);
+      expect(item.at(2).prop("isHeader")).toEqual(false);
+    });
+
+    it("it renders the 3 rows with listCourses empty", () => {
+      const wrapper = shallow(<CourseList listCourses={listCourses} />);
+      expect(wrapper.exists());
+      wrapper.update();
+      const item = wrapper.find("CourseListRow");
+
+      expect(item).toHaveLength(3);
+      expect(item.at(0).prop("textFirstCell")).toEqual("Available courses");
+      expect(item.at(0).prop("isHeader")).toEqual(true);
+
+      expect(item.at(1).prop("textFirstCell")).toEqual("Course name");
+      expect(item.at(1).prop("textSecondCell")).toEqual("Credit");
+      expect(item.at(1).prop("isHeader")).toEqual(true);
+
+      expect(item.at(2).prop("textFirstCell")).toEqual(
+        "No course available yet"
+      );
+      expect(item.at(2).prop("textSecondCell")).toEqual(null);
+      expect(item.at(2).prop("isHeader")).toEqual(false);
+    });
   });
 });
