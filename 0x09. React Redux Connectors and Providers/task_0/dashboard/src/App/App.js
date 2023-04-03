@@ -1,4 +1,5 @@
 import React, { Component, useEffect } from 'react';
+import { connect } from 'react-redux';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header.js';
 import Login from '../Login/Login';
@@ -31,6 +32,7 @@ class App extends Component {
     this.logIn = this.logIn.bind(this);
     this.logOut = this.logOut.bind(this);
     this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
+    this.mapStateToProps = this.mapStateToProps.bind(this);
   }
 
   listCourses = [
@@ -153,5 +155,12 @@ const styles = StyleSheet.create({
     marginTop: '1em',
   },
 });
+export const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.get('isUserLoggedIn'),
+  };
+};
 
-export default App;
+// export default App
+
+export default connect(mapStateToProps)(App);
